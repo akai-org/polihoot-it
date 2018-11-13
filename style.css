@@ -1,0 +1,42 @@
+body{
+    background: #222;
+    color: #aaa;
+    text-align: center;
+}
+
+h1{
+    color: orangered;
+}
+
+input{
+    background: #222;
+    margin-top: 2em;
+    border: 0;
+    padding: 1em;
+    font-size: 1.2em;
+}
+
+label{
+    background: #20c120;
+    padding: 1em;
+    margin-left: 2em;
+    color: #222;
+    font-family: monospace;
+}
+
+#pin{
+    border: 2px solid #20c120;
+    margin: -0.3em;
+    font-family: monospace;
+    color: #20c120;
+    padding: 0.6em 0;
+    width: 6em
+}
+
+input[type="text"]{
+    color: #fff;
+    text-align: center;
+}
+input[type="submit"]{
+    color: #20c120;
+}
