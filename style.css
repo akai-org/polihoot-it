@@ -8,30 +8,37 @@ h1{
     color: orangered;
 }
 
-input{
-    background: #222;
-    margin-top: 2em;
+.logowanie{
+   display:inline-block;
+ 	}
+
+.row{
+    height: 3em;
+    display: flex;
+}
+.row *{
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.text_control{
+    background: white;
     border: 0;
     padding: 1em;
     font-size: 1.2em;
+    font-family: monospace;
+    color: #20c120;
+    width: 6em
 }
 
-label{
-    background: #20c120;
+.pin_label{
+    background: red;
     padding: 1em;
     margin-left: 2em;
     color: #222;
     font-family: monospace;
 }
 
-#pin{
-    border: 2px solid #20c120;
-    margin: -0.3em;
-    font-family: monospace;
-    color: #20c120;
-    padding: 0.6em 0;
-    width: 6em
-}
 
 input[type="text"]{
     color: #fff;

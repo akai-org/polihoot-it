@@ -7,10 +7,14 @@
     
     <body>
         <h1>Polihoot.it</h1>
-        <form action="login.php">
-            <label>PIN</label>
-            <input id="pin" type="text" placeholder="">
-            <input type="submit" value="Go">
-        </form>
+        <div class="logowanie">
+          <form action="login.php">
+            <div class="row">
+                <label for="pin" class="pin_label">PIN</label>
+                <input class="text_control" id="pin" type="text" placeholder="">
+            </div>
+            <input id ="go" type="submit" value="Go">
+          </form>
+        </div>
     </body>
 </html>
