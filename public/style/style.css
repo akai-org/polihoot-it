@@ -1,0 +1,32 @@
+body{
+    background: #222;
+    color: #aaa;
+    text-align: center;
+}
+
+h1{
+    color: #f70000;
+}
+
+.logowanie{
+   display:inline-block;
+ 	}
+
+.row{
+    height: 3em;
+    display: flex;
+}
+.row *{
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.text_control{
+    background: white;
+    border: 0;
+    padding: 1em;
+    font-size: 1.2em;
+    font-family: monospace;
+    color: #20c120;
+    width: 6em
+}

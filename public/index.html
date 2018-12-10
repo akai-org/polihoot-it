@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Polihoot.it</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+        <link rel="stylesheet" type="text/css" href="style/style.css">
+        <link rel="stylesheet" type="text/css" href="style/index.css">
+    </head>
+    
+    <body>
+        <h1>Polihoot.it</h1>
+        <div id="mario-chat">
+            <h2>What's the height of Eiffel Tower?</h2>
+            <div id="chat-window">
+                <div id="answers">
+                    <div id="a">A. 243m</div>
+                    <div id="b">B. 324m</div>
+                    <div id="c">C. 423m</div>
+                    <div id="d">D. 432m</div>
+                </div>
+                <div id="output">
+                    <div id="odpa"></div>
+                    <div id="odpb" class="correct"></div>
+                    <div id="odpc"></div>
+                    <div id="odpd"></div>
+                </div>
+            </div>
+            <input id="nick" type="text" placeholder="nick" />
+            <button id="send" value="A">A</button>
+            <button id="belo" value="B">B</button>
+            <button id="celo" value="B">C</button>
+            <button id="delo" value="B">D</button>
+        </div>
+    </body>
+    <script src="abcd.js"></script>
+</html>

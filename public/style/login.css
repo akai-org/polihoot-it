@@ -1,0 +1,21 @@
+input{
+    background: #222;
+}
+
+.pin_label{
+    background: red;
+    padding: 1em;
+    margin-left: 2em;
+    color: #222;
+    font-family: monospace;
+}
+
+input[type="text"]{
+    color: #fff;
+    text-align: center;
+    border: 0;
+}
+input[type="submit"]{
+    color: #20c120;
+    border: 0;
+}
