@@ -13,8 +13,6 @@ var nick = document.getElementById('nick'),
     odpa = document.getElementById('odpa');
 
 // emit events
-
-
 btna.addEventListener('click', function(){
     socket.emit('abcd', {
         nick: nick.value,
@@ -45,14 +43,15 @@ btnd.addEventListener('click', function(){
 
 //listen for events
 socket.on('abcd', function(data){
-    if (data.answer=="A"){
-        odpa.innerHTML += "<p>"+data.nick+"</p> <br/>";
-    } else if (data.answer=="B"){
-        odpb.innerHTML += "<p>"+data.nick+"</p> <br/>";
-    } else if (data.answer=="C"){
-        odpc.innerHTML += "<p>"+data.nick+"</p> <br/>";
-    } else if (data.answer=="D"){
-        odpd.innerHTML += "<p>"+data.nick+"</p> <br/>";
+    if (data.nick) {
+        if (data.answer=="A"){
+            odpa.innerHTML += "<p>"+data.nick+"</p> <br/>";
+        } else if (data.answer=="B"){
+            odpb.innerHTML += "<p>"+data.nick+"</p> <br/>";
+        } else if (data.answer=="C"){
+            odpc.innerHTML += "<p>"+data.nick+"</p> <br/>";
+        } else if (data.answer=="D"){
+            odpd.innerHTML += "<p>"+data.nick+"</p> <br/>";
+        }
     }
-   
 });
