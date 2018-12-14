@@ -1,0 +1,113 @@
+body{
+    background: #000;
+    color: #aaa;
+    text-align: center;
+    font-family: monospace;
+    padding: 0;
+    margin: 0;
+}
+
+h1{
+    color: #f70000;
+    font-size: 3em;
+    padding: 1em;
+    margin: 0;
+    background: #000;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+}
+
+input[type="text"]{
+    background: #000;
+    color: #ccc;
+    border: 0;
+    border-bottom: 1px solid #aaa;
+    text-align: center;
+    font-size: 2em;
+    position: fixed;
+    transform: translateX(-50%);
+    top: 4em;
+}
+
+#text {
+    background: #000;
+    position: fixed;
+    width: 100%;
+    top: 9em;
+    height: 9em;
+}
+
+input[type="submit"]{
+    background: #000;
+    color: #20c120;
+    border: 2px solid #20c120;
+    padding-top: 0.1em;
+    margin-top: 3em;
+    text-align: center;
+    font-size: 2em;
+    cursor: pointer;
+    position: fixed;
+    bottom: 2em;
+    transform: translateX(-50%);
+}
+
+#submit {
+    background: #000;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 12em;
+    z-index: 2;
+}
+
+input:active {
+    box-shadow: 0;
+}
+
+list {
+    list-style: none;
+    padding: 5;
+    margin-top: 90px;
+    padding: 5%;
+    width: 40%;
+}
+
+li {
+    color: #ccc;
+    border: 0;
+    padding: 0.5em;
+    border-bottom: 1px solid #aaa;
+    border-bottom-left-radius: 1px;
+    text-align: center;
+    font-size: 2em;
+    width: 50%;
+    margin: auto;
+    cursor: pointer;
+}
+
+h6 {
+    font-size: 2.5em;
+    padding: 1em;
+    margin: 0;
+    margin-bottom: 2em;
+}
+
+#answers {
+    font-size: 2em;
+}
+
+.ans {
+    border: 0.1em solid #ccc;
+    margin: 1em;
+    padding: 1em;
+    cursor: pointer;
+}
+
+.ans:hover {
+    border: 0.3em solid #ccc;
+    padding: 0.8em;
+    font-weight: 1000;
+}
