@@ -25,15 +25,14 @@ export const genSecondView = nick => {
 
   const button = document.createElement('button');
   button.innerHTML = 'JOIN';
+  button.setAttribute('id', 'button');
   container.appendChild(button);
 
-  const messageBox = document.createElement('div');
-  // do poprawy!
-  var height = -100 + window.innerHeight - document.getElementById('text').offsetHeight;
-  messageBox.style.height = height;
-  messageBox.style.marginTop = document.getElementById('text').offsetHeight;
-  container.appendChild(messageBox);
- 
+  const roomList = document.createElement('div');
+  roomList.setAttribute('id', 'roomList');
+  container.appendChild(roomList);
+  document.getElementById('roomList').style.height = (document.getElementById('button').offsetTop - document.getElementById('roomList').offsetTop - 30) + 'px';
+  
   // sending message
   button.addEventListener('click', () => {
     socket.emit('message', { message: input.value, room: nick });
@@ -44,6 +43,6 @@ export const genSecondView = nick => {
     const newMessage = document.createElement('li');
     console.log(data);
     newMessage.innerHTML = data.message;
-    container.appendChild(newMessage);
+    roomList.appendChild(newMessage);
   });
 };
