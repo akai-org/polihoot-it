@@ -1,6 +1,30 @@
 import { container, socket } from './index';
+//import {users, User} from 'C:/Users/mac/Desktop/polihoot-i2/polihoot-it/server/server.js';
+
+const rooms = [];
+const users = [];
+const questionsSets = [];
+
+class User {
+  constructor(nick, id) {
+    this.nick = nick;
+    this.id = id;
+    this.room = '';
+    this.score = 0;
+  }
+  joinRoom(roomName) {
+    this.room = roomName;
+  }
+  updateScore() {
+    this.score++;
+  }
+}
 
 export const genSecondView = nick => {
+
+  const newUser = new User(nick, socket.id);
+  console.log(newUser);
+
   const h1 = document.createElement('h1');
   h1.innerHTML = `Hey ${nick}`;
   container.appendChild(h1);
@@ -32,7 +56,14 @@ export const genSecondView = nick => {
   roomList.setAttribute('id', 'roomList');
   container.appendChild(roomList);
   document.getElementById('roomList').style.height = (document.getElementById('button').offsetTop - document.getElementById('roomList').offsetTop - 30) + 'px';
-  
+
+  //example room list
+  for (var i=10; i>=0; i--) {
+    var roomName = document.createElement('li');
+    roomName.innerHTML = "room " + i;
+    roomList.appendChild(roomName);
+  }
+
   // sending message
   button.addEventListener('click', () => {
     socket.emit('message', { message: input.value, room: nick });

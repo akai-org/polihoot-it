@@ -10,6 +10,22 @@ const server = app.listen(3000, () => {
 const io = socket(server);
 
 const rooms = [];
+const users = [];
+const questionsSets = [];
+
+class User {
+  constructor(id) {
+    this.id = id;
+    this.room = '';
+    this.score = 0;
+  }
+  joinRoom(roomName) {
+    this.room = roomName;
+  }
+  updateScore() {
+    this.score++;
+  }
+}
 
 class Room {
   constructor(name) {
