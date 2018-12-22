@@ -1,29 +1,6 @@
 import { container, socket } from './index';
-//import {users, User} from 'C:/Users/mac/Desktop/polihoot-i2/polihoot-it/server/server.js';
-
-const rooms = [];
-const users = [];
-const questionsSets = [];
-
-class User {
-  constructor(nick, id) {
-    this.nick = nick;
-    this.id = id;
-    this.room = '';
-    this.score = 0;
-  }
-  joinRoom(roomName) {
-    this.room = roomName;
-  }
-  updateScore() {
-    this.score++;
-  }
-}
 
 export const genSecondView = nick => {
-
-  const newUser = new User(nick, socket.id);
-  console.log(newUser);
 
   const h1 = document.createElement('h1');
   h1.innerHTML = `Hey ${nick}`;
