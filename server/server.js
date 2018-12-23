@@ -65,9 +65,9 @@ io.on('connection', socket => {
       console.log(users);
       rooms.push(new Room(data.room));
       console.log(rooms);
-      io.to(socket.id).emit('connected', { user: users.filter(user => user.id === socket.id)[0].nick, rooms: rooms })
+      io.to(socket.id).emit('connectedToRoom', { user: users.filter(user => user.id === socket.id)[0].nick, rooms: rooms })
     } else {
-      io.to(socket.id).emit('roomExists');
+      io.to(socket.id).emit('roomExists', { room: data.room });
     }
   });
 });

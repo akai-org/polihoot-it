@@ -1,5 +1,9 @@
 import { container, socket } from './index';
 
+const roomError = data => {
+  
+}
+
 export const genSecondView = nick => {
   const h1 = document.createElement('h1');
   h1.innerHTML = `Hey ${nick}`;
@@ -20,6 +24,7 @@ export const genSecondView = nick => {
   
   const style = document.createElement('div');
   style.setAttribute('style', 'margin-top: 4em; color: #ccc;');
+  style.setAttribute('id', 'style');
   style.innerHTML = 'or choose one';
   text.appendChild(style);
 
@@ -53,5 +58,30 @@ export const genSecondView = nick => {
     console.log(data);
     newRoom.innerHTML = data.roomName;
     roomList.appendChild(newRoom);
+  });
+
+  // response from server
+  socket.on('roomExists', data => {
+    document.getElementById('style').innerHTML = 'room already exists';
+    document.getElementById('style').style.color = "red";
+
+    var inputs = document.getElementsByTagName('input');
+    inputs[0].borderBottom = "1px solid red";
+    inputs[0].value = '';
+
+    const newRoom = document.createElement('li');
+    newRoom.setAttribute('style', 'color: #20c120; border-bottom: 1px solid #20c120;')
+    newRoom.innerHTML = data.room;
+    roomList.insertBefore(newRoom, document.getElementById('roomList').childNodes[0]);
+  });
+
+  socket.on('connectedToRoom', data => {
+    socket.off('connectedToRoom');
+    // remove all items from container
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
+    // call gen second view
+    genSecondView(data.user);
   });
 };
