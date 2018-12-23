@@ -52,15 +52,4 @@ export const genFirstView = () => {
     // call gen second view
     genSecondView(data.user);
   });
-
-  // // response from server
-  // socket.on('connected-to-room', data => {
-  //   socket.off('connected-to-room');
-  //   // remove all items from container
-  //   while (container.firstChild) {
-  //     container.removeChild(container.firstChild);
-  //   }
-  //   // call gen second view
-  //   genSecondView(data.room);
-  // });
 };
