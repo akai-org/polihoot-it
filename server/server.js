@@ -9,7 +9,7 @@ const server = app.listen(3000, () => {
 
 const io = socket(server);
 
-const rooms = [];
+const rooms = [ 'room1' ];
 const users = [];
 const questionsSets = [];
 
@@ -31,8 +31,12 @@ class User {
 class Room {
   constructor(name) {
     this.name = name;
-    this.messages = [];
+    //this.messages = [];
+    //this.users = [];
   }
+  // joinRoom(user) {
+  //   this.users.push(user);
+  // }
   addMessage(message) {
     this.messages.push(message);
   }
@@ -50,14 +54,20 @@ io.on('connection', socket => {
       console.log(`${socket.id} connected as ${data.user}`);
       io.to(socket.id).emit('connected', { user: data.user });
     } else {
-      io.emit('nickError');
+      io.to(socket.id).emit('nickError');
     }
   });
 
-  socket.on('message', data => {
-    io.to(data.room).emit('message', { message: data.message });
-    const room = rooms.filter(room => room.name === data.room)[0];
-    room.addMessage(data.message);
-    console.log(room.messages);
+  socket.on('createRoom', data => {
+    if (rooms.filter(room => room.name === data.room).length === 0){
+      users.filter(user => user.id === socket.id)[0].joinRoom(data.room);
+      console.log("joined room " + data.room);
+      console.log(users);
+      rooms.push(new Room(data.room));
+      console.log(rooms);
+      io.to(socket.id).emit('connected', { user: users.filter(user => user.id === socket.id)[0].nick, rooms: rooms })
+    } else {
+      io.to(socket.id).emit('roomExists');
+    }
   });
 });

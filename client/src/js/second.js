@@ -1,7 +1,6 @@
 import { container, socket } from './index';
 
 export const genSecondView = nick => {
-
   const h1 = document.createElement('h1');
   h1.innerHTML = `Hey ${nick}`;
   container.appendChild(h1);
@@ -32,25 +31,27 @@ export const genSecondView = nick => {
   const roomList = document.createElement('div');
   roomList.setAttribute('id', 'roomList');
   container.appendChild(roomList);
-  document.getElementById('roomList').style.height = (document.getElementById('button').offsetTop - document.getElementById('roomList').offsetTop - 30) + 'px';
+  document.getElementById('roomList').style.height = 
+    (document.getElementById('button').offsetTop 
+    - document.getElementById('roomList').offsetTop - 30) + 'px';
 
   //example room list
-  for (var i=10; i>=0; i--) {
+  for (var i = 10; i >= 0; i--) {
     var roomName = document.createElement('li');
-    roomName.innerHTML = "room " + i;
+    roomName.innerHTML = i;
     roomList.appendChild(roomName);
   }
 
   // sending message
   button.addEventListener('click', () => {
-    socket.emit('message', { message: input.value, room: nick });
+    socket.emit('createRoom', { room: input.value });
   });
 
-  // getting message
-  socket.on('message', data => {
-    const newMessage = document.createElement('li');
+  // creating room
+  socket.on('createRoom', data => {
+    const newRoom = document.createElement('li');
     console.log(data);
-    newMessage.innerHTML = data.message;
-    roomList.appendChild(newMessage);
+    newRoom.innerHTML = data.roomName;
+    roomList.appendChild(newRoom);
   });
 };
