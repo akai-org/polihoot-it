@@ -1,9 +1,5 @@
 import { container, socket } from './index';
 
-const roomError = data => {
-  
-}
-
 export const genSecondView = nick => {
   const h1 = document.createElement('h1');
   h1.innerHTML = `Hey ${nick}`;
@@ -52,14 +48,6 @@ export const genSecondView = nick => {
     socket.emit('createRoom', { room: input.value });
   });
 
-  // creating room
-  socket.on('createRoom', data => {
-    const newRoom = document.createElement('li');
-    console.log(data);
-    newRoom.innerHTML = data.roomName;
-    roomList.appendChild(newRoom);
-  });
-
   // response from server
   socket.on('roomExists', data => {
     document.getElementById('style').innerHTML = 'room already exists';
@@ -72,7 +60,7 @@ export const genSecondView = nick => {
     const newRoom = document.createElement('li');
     newRoom.setAttribute('style', 'color: #20c120; border-bottom: 1px solid #20c120;')
     newRoom.innerHTML = data.room;
-    roomList.insertBefore(newRoom, document.getElementById('roomList').childNodes[0]);
+    document.getElementById('roomList').insertBefore(newRoom, document.getElementById('roomList').childNodes[0]);
   });
 
   socket.on('connectedToRoom', data => {
@@ -81,7 +69,7 @@ export const genSecondView = nick => {
     while (container.firstChild) {
       container.removeChild(container.firstChild);
     }
-    // call gen second view
+    // call gen should be third view not second
     genSecondView(data.user);
   });
 };
