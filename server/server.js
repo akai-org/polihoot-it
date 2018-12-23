@@ -52,7 +52,7 @@ io.on('connection', socket => {
       users.push(new User(data.user, socket.id));
       console.log(users);
       console.log(`${socket.id} connected as ${data.user}`);
-      io.to(socket.id).emit('connected', { user: data.user });
+      io.to(socket.id).emit('connected', { user: data.user, rooms });
     } else {
       io.to(socket.id).emit('nickError');
     }

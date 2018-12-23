@@ -43,13 +43,13 @@ export const genFirstView = () => {
     nickError();
   });
 
-  socket.on('connected', data => {
+  socket.on('connected', (data, rooms) => {
     socket.off('connected');
     // remove all items from container
     while (container.firstChild) {
       container.removeChild(container.firstChild);
     }
     // call gen second view
-    genSecondView(data.user);
+    genSecondView(data.user, rooms);
   });
 };
