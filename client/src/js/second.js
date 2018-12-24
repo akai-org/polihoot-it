@@ -60,7 +60,7 @@ export const genSecondView = nick => {
     const newRoom = document.createElement('li');
     newRoom.setAttribute('style', 'color: #20c120; border-bottom: 1px solid #20c120;')
     newRoom.innerHTML = data.room;
-    document.getElementById('roomList').insertBefore(newRoom, document.getElementById('roomList').childNodes[0]);
+    roomList.insertBefore(newRoom, document.getElementById('roomList').childNodes[0]);
   });
 
   socket.on('connectedToRoom', data => {
