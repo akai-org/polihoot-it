@@ -7,12 +7,6 @@ const server = app.listen(3000, () => {
   console.log('starting server on port 3000');
 });
 
-const io = socket(server);
-
-const rooms = [ 'room1' ];
-const users = [];
-const questionsSets = [];
-
 class User {
   constructor(nick, id) {
     this.nick = nick;
@@ -42,6 +36,14 @@ class Room {
   }
 }
 
+const io = socket(server);
+var room1 = new Room('Room1');
+var room2 = new Room('Room2');
+var room3 = new Room('Room3');
+const rooms = [ room1, room2, room3 ];
+const users = [];
+const questionsSets = [];
+
 io.on('connection', socket => {
   console.log(`new connection from: ${socket.id}`);
 
@@ -52,7 +54,7 @@ io.on('connection', socket => {
       users.push(new User(data.user, socket.id));
       console.log(users);
       console.log(`${socket.id} connected as ${data.user}`);
-      io.to(socket.id).emit('connected', { user: data.user, rooms });
+      io.to(socket.id).emit('connected', { user: data.user, rooms: rooms });
     } else {
       io.to(socket.id).emit('nickError');
     }

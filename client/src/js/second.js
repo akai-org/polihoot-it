@@ -1,6 +1,6 @@
 import { container, socket } from './index';
 
-export const genSecondView = nick => {
+export const genSecondView = (nick, rooms) => {
   const h1 = document.createElement('h1');
   h1.innerHTML = `Hey ${nick}`;
   container.appendChild(h1);
@@ -36,10 +36,11 @@ export const genSecondView = nick => {
     (document.getElementById('button').offsetTop 
     - document.getElementById('roomList').offsetTop - 30) + 'px';
 
+
   //example room list
-  for (var i = 10; i >= 0; i--) {
+  for (var i = rooms.length-1; i >= 0; i--) {
     var roomName = document.createElement('li');
-    roomName.innerHTML = i;
+    roomName.innerHTML = rooms[i].name;
     roomList.appendChild(roomName);
   }
 
@@ -57,10 +58,27 @@ export const genSecondView = nick => {
     inputs[0].borderBottom = "1px solid red";
     inputs[0].value = '';
 
-    const newRoom = document.createElement('li');
-    newRoom.setAttribute('style', 'color: #20c120; border-bottom: 1px solid #20c120;')
-    newRoom.innerHTML = data.room;
-    roomList.insertBefore(newRoom, document.getElementById('roomList').childNodes[0]);
+    var elem = document.getElementById('roomList');
+    elem.parentNode.removeChild(elem);
+    const roomList = document.createElement('div');
+
+    const existingRooom = document.createElement('li');
+    existingRooom.setAttribute('style', 'color: #20c120; border-bottom: 1px solid #20c120;')
+    existingRooom.innerHTML = data.room;
+    roomList.appendChild(existingRooom);
+    for (var i = rooms.length-1; i >= 0; i--) {
+      if (rooms[i].name != data.room) {
+        var roomName = document.createElement('li');
+        roomName.innerHTML = rooms[i].name;
+        roomList.appendChild(roomName);
+      }
+    }
+    roomList.setAttribute('id', 'roomList');
+    container.appendChild(roomList);
+    document.getElementById('roomList').style.height = 
+      (document.getElementById('button').offsetTop 
+      - document.getElementById('roomList').offsetTop - 30) + 'px';
+    container.appendChild(roomList);
   });
 
   socket.on('connectedToRoom', data => {
@@ -70,6 +88,6 @@ export const genSecondView = nick => {
       container.removeChild(container.firstChild);
     }
     // call gen should be third view not second
-    genSecondView(data.user);
+    genSecondView(data.user, data.rooms);
   });
 };

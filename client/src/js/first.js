@@ -56,6 +56,6 @@ export const genFirstView = () => {
       container.removeChild(container.firstChild);
     }
     // call gen second view
-    genSecondView(data.user);
+    genSecondView(data.user, data.rooms);
   });
 };
