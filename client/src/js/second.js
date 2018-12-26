@@ -81,6 +81,15 @@ export const genSecondView = (nick, rooms) => {
     container.appendChild(roomList);
   });
 
+  socket.on('roomNameError', () => {
+    var inputs = document.getElementsByTagName('input');
+    inputs[0].value='';
+    inputs[0].style.borderBottom='1px solid red';
+    document.getElementById('style').innerHTML = '';
+    document.getElementById('style').innerHTML = 'only letters and numbers are allowed';
+    document.getElementById('style').style.color = "red";
+  });
+
   socket.on('connectedToRoom', data => {
     socket.off('connectedToRoom');
     // remove all items from container

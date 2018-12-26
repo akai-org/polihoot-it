@@ -15,6 +15,14 @@ export const genFirstView = () => {
   input.setAttribute('placeholder', 'nick');
   text.appendChild(input);
 
+  const br = document.createElement('br');
+  text.appendChild(br);
+  
+  const error = document.createElement('div');
+  error.setAttribute('style', 'margin-top: 4em; color: red;');
+  error.setAttribute('id', 'error');
+  text.appendChild(error);
+
   const button = document.createElement('button');
   button.innerHTML = 'ENTER';
   button.setAttribute('id', 'button');
@@ -35,18 +43,15 @@ export const genFirstView = () => {
   });
 
   // response from server
-  socket.on('nickError', () => {
+  socket.on('nickError', errorType => {
     var inputs = document.getElementsByTagName('input');
     inputs[0].value='';
     inputs[0].style.borderBottom='1px solid red';
-
-    const br = document.createElement('br');
-    text.appendChild(br);
-    
-    const error = document.createElement('div');
-    error.setAttribute('style', 'margin-top: 4em; color: red;');
-    error.innerHTML = 'that nick is taken';
-    text.appendChild(error);
+    document.getElementById('error').innerHTML = '';
+    if (errorType === 'double')
+      document.getElementById('error').innerHTML = 'that nick is taken';
+    else
+      document.getElementById('error').innerHTML = 'only letters and numbers are allowed';
   });
 
   socket.on('connected', data => {

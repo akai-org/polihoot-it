@@ -50,18 +50,22 @@ io.on('connection', socket => {
   socket.on('enter-nick', data => {
     socket.join(data.user);
     // nowy user
-    if (users.filter(user => user.nick === data.user).length === 0) {
+    if (!/^[a-z0-9]+$/i.test(data.user)) {
+      io.to(socket.id).emit('nickError', 'empty');
+    } else if (users.filter(user => user.nick === data.user).length === 0) {
       users.push(new User(data.user, socket.id));
       console.log(users);
       console.log(`${socket.id} connected as ${data.user}`);
       io.to(socket.id).emit('connected', { user: data.user, rooms: rooms });
     } else {
-      io.to(socket.id).emit('nickError');
+      io.to(socket.id).emit('nickError', 'double');
     }
   });
 
   socket.on('createRoom', data => {
-    if (rooms.filter(room => room.name === data.room).length === 0){
+    if (!/^[a-z0-9]+$/i.test(data.room))
+      io.to(socket.id).emit('roomNameError');
+    else if (rooms.filter(room => room.name === data.room).length === 0){
       users.filter(user => user.id === socket.id)[0].joinRoom(data.room);
       console.log("joined room " + data.room);
       console.log(users);
