@@ -20,17 +20,13 @@ h1{
 }
 
 input[type="text"]{
-    width: 50%;
-    max-width: 400px;
     background: #000;
     color: #ccc;
-    border: 0;
-    border-bottom: 1px solid #aaa;
-    text-align: center;
     font-size: 2em;
     position: fixed;
-    transform: translateX(-50%);
+    text-align: center;
     top: 4em;
+    transform: translateX(-50%);
 }
 
 #text {
@@ -124,4 +120,38 @@ h6 {
     border: 0.3em solid #ccc;
     padding: 0.8em;
     font-weight: 1000;
+}
+
+.style {
+    margin-top: 4em;
+    color: #ccc;
+}
+
+.narrowInput {
+    width: 50%;
+    max-width: 400px;
+}
+
+.wideInput {
+    width: 70%;
+    max-width: 500px;
+}
+
+.doubledRoom {
+    color: #20c120;
+    border-bottom: 1px solid #20c120;
+}
+
+.error {
+    color: red;
+}
+
+.inputNotError {
+    border: 0;
+    border-bottom: 1px solid #aaa;
+}
+
+.inputError {
+    border: 0;
+    border-bottom: 1px solid red;
 }
