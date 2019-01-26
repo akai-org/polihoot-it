@@ -1,4 +1,5 @@
 import { container, socket } from './index';
+import { genThirdView } from './third';
 
 export const genSecondView = (nick, rooms) => {
   const h1 = document.createElement('h1');
@@ -32,31 +33,39 @@ export const genSecondView = (nick, rooms) => {
 
   const roomList = document.createElement('div');
   roomList.setAttribute('id', 'roomList');
+  roomList.classList.add('scroll');
   container.appendChild(roomList);
   document.getElementById('roomList').style.height = 
     (document.getElementById('button').offsetTop 
     - document.getElementById('roomList').offsetTop - 30) + 'px';
 
-  for (var i = rooms.length-1; i >= 0; i--) {
-    var roomName = document.createElement('li');
-    roomName.innerHTML = rooms[i].name;
+  for (const room of rooms) {
+    let roomName = document.createElement('li');
+    roomName.innerHTML = room.name;
     roomList.appendChild(roomName);
   }
+
+  input.addEventListener('click', () => {
+    button.innerHTML = 'CREATE';
+  });
+
+  roomList.addEventListener('click', () => {
+    button.innerHTML = 'JOIN';
+  });
 
   button.addEventListener('click', () => {
     socket.emit('createRoom', { room: input.value });
   });
 
   socket.on('roomExists', data => {
-    document.getElementById('style').innerHTML = 'room already exists';
-    document.getElementById('style').classList.add("error");
+    style.innerHTML = 'room already exists';
+    style.classList.add("error");
 
-    var inputs = document.getElementsByTagName('input');
     input.classList.remove("inputNotError");
-    inputs[0].classList.add("inputError");
-    inputs[0].value = '';
+    input.classList.add("inputError");
+    input.value = '';
 
-    var elem = document.getElementById('roomList');
+    const elem = document.getElementById('roomList');
     elem.parentNode.removeChild(elem);
     const roomList = document.createElement('div');
 
@@ -65,10 +74,10 @@ export const genSecondView = (nick, rooms) => {
     existingRooom.innerHTML = data.room;
     roomList.appendChild(existingRooom);
 
-    for (var i = rooms.length-1; i >= 0; i--) {
-      if (rooms[i].name != data.room) {
-        var roomName = document.createElement('li');
-        roomName.innerHTML = rooms[i].name;
+    for (const room of rooms) {
+      if (room.name != data.room) {
+        const roomName = document.createElement('li');
+        roomName.innerHTML = room.name;
         roomList.appendChild(roomName);
       }
     }
@@ -78,15 +87,16 @@ export const genSecondView = (nick, rooms) => {
       (document.getElementById('button').offsetTop 
       - document.getElementById('roomList').offsetTop - 30) + 'px';
     container.appendChild(roomList);
+
+    button.innerHTML = "JOIN";
   });
 
   socket.on('roomNameError', () => {
-    var inputs = document.getElementsByTagName('input');
-    inputs[0].value='';
-    inputs[0].classList.add("inputError");
-    document.getElementById('style').innerHTML = '';
-    document.getElementById('style').innerHTML = 'only letters and numbers are allowed';
-    document.getElementById('style').classList.add("error");
+    input.value='';
+    input.classList.add("inputError");
+    style.innerHTML = '';
+    style.innerHTML = 'only letters and numbers are allowed';
+    style.classList.add("error");
   });
 
   socket.on('connectedToRoom', data => {
@@ -94,7 +104,7 @@ export const genSecondView = (nick, rooms) => {
     while (container.firstChild) {
       container.removeChild(container.firstChild);
     }
-    //should be third view not second
-    genSecondView(data.user, data.rooms);
+
+    genThirdView(data.user, data.room);
   });
 };
