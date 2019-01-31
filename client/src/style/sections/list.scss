@@ -1,0 +1,21 @@
+#roomList {
+    position: fixed;
+    top: 18em;
+    width: 100%;
+    overflow: auto;
+}
+
+li {
+    list-style: none;
+    color: #ccc;
+    border: 0;
+    padding: 0.2em;
+    border-bottom: 1px solid #aaa;
+    border-bottom-left-radius: 1px;
+    text-align: center;
+    font-size: 1.7em;
+    width: 50%;
+    min-width: 180px;
+    margin: auto;
+    cursor: pointer;
+}

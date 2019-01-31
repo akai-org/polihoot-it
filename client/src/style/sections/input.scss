@@ -1,0 +1,55 @@
+input[type="text"]{
+    background: #000;
+    color: #ccc;
+    font-size: 2em;
+    position: fixed;
+    text-align: center;
+    top: 4em;
+    transform: translateX(-50%);
+}
+
+#text {
+    background: #000;
+    position: fixed;
+    width: 100%;
+    top: 9em;
+    height: 9em;
+}
+
+input:focus {
+    outline: 0;
+}
+
+.style {
+    margin-top: 4em;
+    color: #ccc;
+}
+
+.narrowInput {
+    width: 50%;
+    max-width: 400px;
+}
+
+.wideInput {
+    width: 70%;
+    max-width: 500px;
+}
+
+.doubledRoom {
+    color: #20c120;
+    border-bottom: 1px solid #20c120;
+}
+
+.error {
+    color: red;
+}
+
+.inputNotError {
+    border: 0;
+    border-bottom: 1px solid #aaa;
+}
+
+.inputError {
+    border: 0;
+    border-bottom: 1px solid red;
+}
