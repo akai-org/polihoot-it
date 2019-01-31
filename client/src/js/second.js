@@ -89,6 +89,14 @@ export const genSecondView = (nick, rooms) => {
     container.appendChild(roomList);
 
     button.innerHTML = "JOIN";
+
+    input.addEventListener('click', () => {
+      button.innerHTML = 'CREATE';
+    });
+
+    roomList.addEventListener('click', () => {
+      button.innerHTML = 'JOIN';
+    });
   });
 
   socket.on('roomNameError', () => {
