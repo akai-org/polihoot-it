@@ -1,4 +1,9 @@
+html {
+    height: 100%;
+}
+
 body{
+    height: 100%;
     background: #000;
     color: #aaa;
     text-align: center;
@@ -7,6 +12,7 @@ body{
     margin: 0;
 }
 
+@import './sections/container.scss';
 @import './sections/header.scss';
 @import './sections/input.scss';
 @import './sections/list.scss';

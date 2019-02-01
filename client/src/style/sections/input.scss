@@ -2,17 +2,12 @@ input[type="text"]{
     background: #000;
     color: #ccc;
     font-size: 2em;
-    position: fixed;
     text-align: center;
-    top: 4em;
-    transform: translateX(-50%);
 }
 
 #text {
     background: #000;
-    position: fixed;
     width: 100%;
-    top: 9em;
     height: 9em;
 }
 
@@ -21,7 +16,7 @@ input:focus {
 }
 
 .style {
-    margin-top: 4em;
+    margin: 0.5em auto 3em auto;
     color: #ccc;
 }
 

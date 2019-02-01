@@ -2,13 +2,16 @@ import { container, socket } from './index';
 import { genThirdView } from './third';
 
 export const genSecondView = (nick, rooms) => {
+  const header = document.createElement('div');
+  container.appendChild(header);
+
   const h1 = document.createElement('h1');
   h1.innerHTML = `Hey ${nick}`;
-  container.appendChild(h1);
+  header.appendChild(h1);
 
   const text = document.createElement('div');
   text.setAttribute('id', 'text');
-  container.appendChild(text);
+  header.appendChild(text);
 
   const input = document.createElement('input');
   input.setAttribute('type', 'text');
@@ -26,18 +29,18 @@ export const genSecondView = (nick, rooms) => {
   style.innerHTML = 'or choose one';
   text.appendChild(style);
 
-  const button = document.createElement('button');
-  button.innerHTML = 'JOIN';
-  button.setAttribute('id', 'button');
-  container.appendChild(button);
+  const content = document.createElement('div');
+  container.appendChild(content);
 
   const roomList = document.createElement('div');
   roomList.setAttribute('id', 'roomList');
   roomList.classList.add('scroll');
-  container.appendChild(roomList);
-  document.getElementById('roomList').style.height = 
-    (document.getElementById('button').offsetTop 
-    - document.getElementById('roomList').offsetTop - 30) + 'px';
+  content.appendChild(roomList);
+
+  const button = document.createElement('button');
+  button.innerHTML = 'JOIN';
+  button.setAttribute('id', 'button');
+  container.appendChild(button);
 
   for (const room of rooms) {
     let roomName = document.createElement('li');
