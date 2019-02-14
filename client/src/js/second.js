@@ -30,11 +30,11 @@ export const genSecondView = (nick, rooms) => {
   text.appendChild(style);
 
   const content = document.createElement('div');
+  content.classList.add('scroll');
   container.appendChild(content);
 
   const roomList = document.createElement('div');
   roomList.setAttribute('id', 'roomList');
-  roomList.classList.add('scroll');
   content.appendChild(roomList);
 
   const button = document.createElement('button');
