@@ -30,11 +30,11 @@ export const genSecondView = (nick, rooms) => {
   text.appendChild(style);
 
   const content = document.createElement('div');
+  content.classList.add('scroll');
   container.appendChild(content);
 
   const roomList = document.createElement('div');
   roomList.setAttribute('id', 'roomList');
-  roomList.classList.add('scroll');
   content.appendChild(roomList);
 
   const button = document.createElement('button');
@@ -85,10 +85,6 @@ export const genSecondView = (nick, rooms) => {
       }
     }
     roomList.setAttribute('id', 'roomList');
-    container.appendChild(roomList);
-    document.getElementById('roomList').style.height = 
-      (document.getElementById('button').offsetTop 
-      - document.getElementById('roomList').offsetTop - 30) + 'px';
     container.appendChild(roomList);
 
     button.innerHTML = "JOIN";
