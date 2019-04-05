@@ -25,9 +25,12 @@ class User {
 class Room {
   constructor(name) {
     this.name = name;
+    this.users = [];
+    this.usersCount = 0;
   }
-  addMessage(message) {
-    this.messages.push(message);
+  addUser(userName) {
+    this.users.push(userName);
+    this.usersCount++;
   }
 }
 
@@ -59,5 +62,10 @@ io.on('connection', socket => {
     } else if (rooms.some(el => el.name === data.room)) {
       io.to(socket.id).emit('roomExists', { room: data.room });
     }
+  });
+
+  socket.on('joinRoom', data => {
+    users.filter(user => user.id === socket.id)[0].joinRoom(data.room);
+    io.to(socket.id).emit('connectedToRoom', { user: users.filter(user => user.id === socket.id)[0], room: rooms.filter(room => room.name === data.room)[0] })
   });
 });
