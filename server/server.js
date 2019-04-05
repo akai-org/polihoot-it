@@ -25,14 +25,17 @@ class User {
 class Room {
   constructor(name) {
     this.name = name;
+    this.users = [];
+    this.usersCount = 0;
   }
-  addMessage(message) {
-    this.messages.push(message);
+  addUser(userName) {
+    this.users.push(userName);
+    this.usersCount++;
   }
 }
 
 const io = socket(server);
-const rooms = [ new Room('Room3'), new Room('Room2'), new Room('Room1') ];
+const rooms = [ new Room('Room14'),new Room('Room13'),new Room('Room12'),new Room('Room11'),new Room('Room10'),new Room('Room9'),new Room('Room8'),new Room('Room7'),new Room('Room6'),new Room('Room5'),new Room('Room4'),new Room('Room3'), new Room('Room2'), new Room('Room1') ];
 const users = [];
 
 io.on('connection', socket => {
@@ -59,5 +62,10 @@ io.on('connection', socket => {
     } else if (rooms.some(el => el.name === data.room)) {
       io.to(socket.id).emit('roomExists', { room: data.room });
     }
+  });
+
+  socket.on('joinRoom', data => {
+    users.filter(user => user.id === socket.id)[0].joinRoom(data.room);
+    io.to(socket.id).emit('connectedToRoom', { user: users.filter(user => user.id === socket.id)[0], room: rooms.filter(room => room.name === data.room)[0] })
   });
 });

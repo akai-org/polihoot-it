@@ -3,6 +3,9 @@
     flex-direction: column;
     width: 100%;
     overflow: auto;
+    // -webkit-box-shadow: inset 0px 0px 38px 38px rgba(0,0,0,1);
+    // -moz-box-shadow: inset 0px 0px 38px 38px rgba(0,0,0,1);
+    // box-shadow: inset 0px 0px 38px 38px rgba(0,0,0,1);
 }
 
 li {
@@ -22,4 +25,8 @@ li {
 
 .scroll {
     overflow: auto;
+}
+
+.active {
+    color: #20C120;
 }
