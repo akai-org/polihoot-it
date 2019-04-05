@@ -115,6 +115,8 @@ export const genSecondView = (nick, rooms) => {
         });
       }
     }
+    roomList.setAttribute('id', 'roomList');
+    content.appendChild(roomList);
 
     button.innerHTML = 'JOIN';
   
