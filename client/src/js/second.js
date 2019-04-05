@@ -108,7 +108,7 @@ export const genSecondView = (nick, rooms) => {
         roomList.appendChild(roomName);
         roomName.addEventListener('click', () => {
           const lis = document.getElementsByTagName('li');
-          for (let i = 0; i<lis.length; i++) {
+          for (let i = 0; i < lis.length; i++) {
             lis[i].classList.remove('active');
           }
           roomName.classList.add('active');
