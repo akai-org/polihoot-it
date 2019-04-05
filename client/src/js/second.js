@@ -46,6 +46,13 @@ export const genSecondView = (nick, rooms) => {
     let roomName = document.createElement('li');
     roomName.innerHTML = room.name;
     roomList.appendChild(roomName);
+    roomName.addEventListener('click', () => {
+      const lis = document.getElementsByTagName('li');
+      for (let i = 0; i<lis.length; i++) {
+        lis[i].classList.remove('active');
+      }
+      roomName.classList.add('active');
+    });
   }
 
   input.addEventListener('click', () => {
@@ -57,10 +64,18 @@ export const genSecondView = (nick, rooms) => {
   });
 
   button.addEventListener('click', () => {
-    socket.emit('createRoom', { room: input.value });
+    if (button.innerHTML === 'CREATE') {
+      socket.emit('createRoom', { room: input.value });
+    } else if (button.innerHTML === 'JOIN') {
+      const lis = document.getElementsByTagName('li');
+      for (let i = 0; i < lis.length; i++) {
+        if (lis[i].classList[0] === 'active')
+          socket.emit('joinRoom', { room: lis[i].innerHTML });
+      }
+    } else console.log("err: second.js/createRoom")
   });
 
-  socket.on('roomExists', data => {
+  socket.on('roomExists', data => { // do poprawy
     style.innerHTML = 'room already exists';
     style.classList.add("error");
 
@@ -71,41 +86,62 @@ export const genSecondView = (nick, rooms) => {
     const elem = document.getElementById('roomList');
     elem.parentNode.removeChild(elem);
     const roomList = document.createElement('div');
+    roomList.setAttribute('id', 'roomList');
+    content.appendChild(roomList);
 
     const existingRooom = document.createElement('li');
-    existingRooom.classList.add("doubledRoom");
     existingRooom.innerHTML = data.room;
+    existingRooom.classList.add("active");
+    existingRooom.addEventListener('click', () => {
+      const lis = document.getElementsByTagName('li');
+      for (let i = 0; i<lis.length; i++) {
+        lis[i].classList.remove('active');
+      }
+      existingRooom.classList.add('active');
+    });
     roomList.appendChild(existingRooom);
 
     for (const room of rooms) {
       if (room.name != data.room) {
-        const roomName = document.createElement('li');
+        let roomName = document.createElement('li');
         roomName.innerHTML = room.name;
         roomList.appendChild(roomName);
+        roomName.addEventListener('click', () => {
+          const lis = document.getElementsByTagName('li');
+          for (let i = 0; i<lis.length; i++) {
+            lis[i].classList.remove('active');
+          }
+          roomName.classList.add('active');
+        });
       }
     }
-    roomList.setAttribute('id', 'roomList');
-    container.appendChild(roomList);
-    document.getElementById('roomList').style.height = 
-      (document.getElementById('button').offsetTop 
-      - document.getElementById('roomList').offsetTop - 30) + 'px';
-    container.appendChild(roomList);
 
-    button.innerHTML = "JOIN";
-
+    button.innerHTML = 'JOIN';
+  
     input.addEventListener('click', () => {
       button.innerHTML = 'CREATE';
     });
-
+  
     roomList.addEventListener('click', () => {
       button.innerHTML = 'JOIN';
+    });
+  
+    button.addEventListener('click', () => {
+      if (button.innerHTML === 'CREATE') {
+        socket.emit('createRoom', { room: input.value });
+      } else if (button.innerHTML === 'JOIN') {
+        const lis = document.getElementsByTagName('li');
+        for (let i = 0; i < lis.length; i++) {
+          if (lis[i].classList[0] === 'active')
+            socket.emit('joinRoom', { room: lis[i].innerHTML });
+        }
+      } else console.log("err: second.js/createRoom")
     });
   });
 
   socket.on('roomNameError', () => {
     input.value='';
     input.classList.add("inputError");
-    style.innerHTML = '';
     style.innerHTML = 'only letters and numbers are allowed';
     style.classList.add("error");
   });

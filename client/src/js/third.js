@@ -6,7 +6,7 @@ export const genThirdView = (user, room) => {
   container.appendChild(h1);
 
   const description = document.createElement('div');
-    description.setAttribute('id', 'description');
-    container.appendChild(description);
-    description.innerHTML = `nick: ${user.nick}</br>id: ${user.id}</br>room: ${user.room}</br>score: ${user.score}`
+  description.setAttribute('id', 'description');
+  container.appendChild(description);
+  description.innerHTML = `nick: ${user.nick}</br>id: ${user.id}</br>room: ${user.room}</br>score: ${user.score}</br></br></br>roomName: ${room.name}</br></br></br></br>`
 }
