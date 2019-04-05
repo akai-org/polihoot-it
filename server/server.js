@@ -32,7 +32,7 @@ class Room {
 }
 
 const io = socket(server);
-const rooms = [ new Room('Room3'), new Room('Room2'), new Room('Room1') ];
+const rooms = [ new Room('Room14'),new Room('Room13'),new Room('Room12'),new Room('Room11'),new Room('Room10'),new Room('Room9'),new Room('Room8'),new Room('Room7'),new Room('Room6'),new Room('Room5'),new Room('Room4'),new Room('Room3'), new Room('Room2'), new Room('Room1') ];
 const users = [];
 
 io.on('connection', socket => {
