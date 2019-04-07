@@ -1,0 +1,68 @@
+
+nav {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  nav div {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  nav div a {
+    font-size: 1.2em;
+    padding: 0.2em;
+  }
+  
+  #players {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-right: 0.5em;
+  }
+  
+  #back {
+    font-size: 2.6em;
+    padding: 0.2em;
+    padding-left: 0.3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  #question {
+    text-align: left;
+    padding: 1em;
+    font-size: 1.5em;
+  }
+  
+  #answers {
+    text-align: left;
+    padding: 1em;
+  }
+  
+  .answer {
+    font-size: 1.2em;
+    padding: 2em;
+    border: 0.1em solid #ccc;
+  }
+  
+  .answer:hover {
+    padding: 1.9em;
+    border: 0.2em solid #20c120;
+  }
+
+  #playersList {
+    position: fixed;
+    right: 0;
+    top: 0;
+    background: black;
+    padding: 0;
+    margin: 0;
+    display: none;
+    overflow: auto;
+}
+
+.PlayersListDisplay {
+    display: block;
+}

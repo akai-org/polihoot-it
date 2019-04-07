@@ -154,6 +154,6 @@ export const genSecondView = (nick, rooms) => {
       container.removeChild(container.firstChild);
     }
 
-    genThirdView(data.user, data.room);
+    genThirdView(data.user, data.room, data.rooms);
   });
 };

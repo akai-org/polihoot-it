@@ -28,8 +28,8 @@ class Room {
     this.users = [];
     this.usersCount = 0;
   }
-  addUser(userName) {
-    this.users.push(userName);
+  addUser(user) {
+    this.users.push(user);
     this.usersCount++;
   }
 }
@@ -42,7 +42,7 @@ io.on('connection', socket => {
 
   socket.on('enter-nick', data => {
     socket.join(data.user);
-    if (!/^[a-z0-9]+$/i.test(data.user)) {
+    if (!/^[a-z0-9ąśęćńłóżź]+$/i.test(data.user)) {
       io.to(socket.id).emit('nickError', 'empty');
     } else if (users.filter(user => user.nick === data.user).length === 0) {
       users.push(new User(data.user, socket.id));
@@ -53,19 +53,24 @@ io.on('connection', socket => {
   });
 
   socket.on('createRoom', data => {
+    let user = users.filter(user => user.id === socket.id)[0];
     if (!/^[a-z0-9]+$/i.test(data.room))
       io.to(socket.id).emit('roomNameError');
     else if (!rooms.some(el => el.name === data.room)){
-      users.filter(user => user.id === socket.id)[0].joinRoom(data.room);
+      user.joinRoom(data.room);
       rooms.unshift( new Room(data.room) );
-      io.to(socket.id).emit('connectedToRoom', { user: users.filter(user => user.id === socket.id)[0], room: rooms[0] })
+      rooms[0].addUser(user);
+      io.to(socket.id).emit('connectedToRoom', { user: user, room: rooms[0], rooms: rooms })
     } else if (rooms.some(el => el.name === data.room)) {
       io.to(socket.id).emit('roomExists', { room: data.room });
     }
   });
 
   socket.on('joinRoom', data => {
-    users.filter(user => user.id === socket.id)[0].joinRoom(data.room);
-    io.to(socket.id).emit('connectedToRoom', { user: users.filter(user => user.id === socket.id)[0], room: rooms.filter(room => room.name === data.room)[0] })
+    let user = users.filter(user => user.id === socket.id)[0];
+    let room = rooms.filter(room => room.name === data.room)[0];
+    user.joinRoom(data.room);
+    room.addUser(user);
+    io.to(socket.id).emit('connectedToRoom', { user: user, room: room, rooms: rooms })
   });
 });
