@@ -12,7 +12,7 @@ export const genThirdView = (user, room, rooms) => {
       while (container.firstChild) {
         container.removeChild(container.firstChild);
       }
-      
+      // socket.emit('leaveRoom', {user: user.id});
       genSecondView(user.nick, rooms);
     });
 
@@ -78,4 +78,31 @@ export const genThirdView = (user, room, rooms) => {
     playersList.appendChild(li);
   }
   container.appendChild(playersList);
-}
+
+  A.addEventListener('click', () => {
+    A.classList.add('activeAnswer');
+    socket.emit('vote', {user: user, room: room, vote: 0});
+  });
+  B.addEventListener('click', () => {
+    B.classList.add('activeAnswer');
+  });
+  C.addEventListener('click', () => {
+    C.classList.add('activeAnswer');
+  });
+  D.addEventListener('click', () => {
+    D.classList.add('activeAnswer');
+  });
+
+  socket.on('voted', data => {
+    if (main)
+      container.removeChild(main)
+    if (container)
+      container.removeChild(question);
+
+    const results = document.createElement('div');
+    results.classList.add('results');
+    results.innerHTML = 'A: '+data.answers[0]+' B: '+data.answers[1]+' C: '+data.answers[2]+' D: '+data.answers[3];
+    container.appendChild(results);
+  });
+
+};

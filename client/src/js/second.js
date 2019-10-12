@@ -76,7 +76,7 @@ export const genSecondView = (nick, rooms) => {
   });
 
   socket.on('roomExists', data => { // do poprawy
-    style.innerHTML = 'room already exists';
+    style.innerHTML = 'room name is taken';
     style.classList.add("error");
 
     input.classList.remove("inputNotError");

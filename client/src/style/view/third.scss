@@ -52,6 +52,11 @@ nav {
     border: 0.2em solid #20c120;
   }
 
+  .activeAnswer {
+    padding: 1.9em;
+    border: 0.2em solid #20c120;
+  }
+
   #playersList {
     position: fixed;
     right: 0;
@@ -65,4 +70,9 @@ nav {
 
 .PlayersListDisplay {
     display: block;
+}
+
+.results {
+  margin-top: 2em;
+  flex: auto;
 }

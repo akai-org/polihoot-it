@@ -13,12 +13,19 @@ class User {
     this.id = id;
     this.room = '';
     this.score = 0;
+    this.answered = false;
   }
   joinRoom(roomName) {
     this.room = roomName;
   }
+  // leaveRoom() {
+  //   this.room = '';
+  // }
   updateScore() {
     this.score++;
+  }
+  answered(state) {
+    this.answered = state;
   }
 }
 
@@ -27,11 +34,19 @@ class Room {
     this.name = name;
     this.users = [];
     this.usersCount = 0;
+    this.answers = [0,0,0,0];
+  }
+  answer(ans) {
+    this.answers[ans] += 1;
   }
   addUser(user) {
     this.users.push(user);
     this.usersCount++;
   }
+  // removeUser(user) {
+  //   this.users = users.filter(us => us !== user)[0];
+  //   this.usersCount--;
+  // }
 }
 
 const io = socket(server);
@@ -73,4 +88,24 @@ io.on('connection', socket => {
     room.addUser(user);
     io.to(socket.id).emit('connectedToRoom', { user: user, room: room, rooms: rooms })
   });
+
+  socket.on('vote', data => {
+    let user = users.filter(user => user.id === socket.id)[0];
+    let room = rooms.filter(room => room.name === data.room.name)[0];
+    room.answer(data.vote);
+    user.answered = true;
+    let usersWhoVoted = users.filter(u => u.room === user.room).filter(u => u.answered === true);
+    usersWhoVoted = usersWhoVoted.map(u => {return u.id});
+    console.log(data.room.name, usersWhoVoted);
+    // usersWhoVoted.forEach(id => { io.to(id).emit('voted', { answers: room.answers }) });
+    // socket.broadcast.emit('voted', { answers: room.answers });
+    io.sockets[usersWhoVoted].emit('voted', { answers: room.answers });
+  });
+
+  // socket.on('leaveRoom', data => {
+  //   let user = users.filter(user => user.id === socket.id)[0];
+  //   let room = rooms.filter(room => room.name === data.room)[0];
+  //   user.leaveRoom();
+  //   room.removeUser(user);
+  // });
 });
